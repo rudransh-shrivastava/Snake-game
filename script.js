@@ -63,7 +63,7 @@ function update()
         context.fillRect(snakeBody[i][0], snakeBody[i][1], blocksize, blocksize);
     }
 
-    if(snakex < 0 || snakex > columns * blocksize || snakey < 0 || snakey > rows * blocksize)
+    if(snakex < 0 || snakex > (columns - 1) * blocksize || snakey < 0 || snakey > (rows - 1) * blocksize)
     {
         gameOver = true;
         alert("GAME OVER\nYou score = " + score);
@@ -74,7 +74,7 @@ function update()
         if(snakex == snakeBody[i][0] && snakey == snakeBody[i][1])
         {
             gameOver = true;
-            alert("GAME OVER");
+            alert("GAME OVER\nYou score = " + score);
         }
     }
 }
