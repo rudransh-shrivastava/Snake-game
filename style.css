@@ -1,0 +1,26 @@
+body {
+    background-color: black;
+    padding: 0px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    color: white;
+}
+
+.score {
+    display: flex;
+    margin: 10px;
+    justify-content: left;
+}
+
+.box {
+    border: 2px solid rgb(255, 255, 255);
+    color: aquamarine;
+    padding: 5px;
+}
+
+.box:hover {
+    box-shadow: 0 0 20px rgba(134, 219, 199, 0.8);
+}
