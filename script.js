@@ -12,12 +12,20 @@ var foodx;
 var foody;
 var gameOver = false;
 var snakeBody = []
-
+var gameInterval;
 var velocityx = 0;
 var velocityy = 0;
 
-window.onload = function () 
+function initializeGame()
 {
+    score = 0;
+    velocityx = 0;
+    velocityy = 0;
+    snakex = blocksize * 5;
+    snakey = blocksize * 5;
+    gameOver = false;
+    snakeBody = [];
+    document.getElementsByClassName("box")[0].innerHTML = `Score = ${score}`;
     board = document.getElementById("board");
     board.height = rows * blocksize;
     board.width = columns * blocksize;
@@ -25,8 +33,14 @@ window.onload = function ()
 
     placefood();
     document.addEventListener("keyup", changeDirection);
-    setInterval(update, 100);
+
+    if(gameInterval)
+        clearInterval(gameInterval);
+
+    gameInterval = setInterval(update, 100);
 }
+
+window.onload = initializeGame;
 
 function update() 
 {
@@ -67,6 +81,7 @@ function update()
     {
         gameOver = true;
         alert("GAME OVER\nYou score = " + score);
+        initializeGame();
     }
 
     for (let i = 0; i < snakeBody.length; i++)
@@ -75,6 +90,7 @@ function update()
         {
             gameOver = true;
             alert("GAME OVER\nYou score = " + score);
+            initializeGame();
         }
     }
 }
