@@ -41,7 +41,7 @@ function initializeGame()
 }
 
 window.onload = initializeGame;
-
+//
 function update() 
 {
     if(gameOver)
