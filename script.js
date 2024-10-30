@@ -6,6 +6,7 @@ let board;
 let context;
 let score = 0;
 let highScore = parseInt(localStorage.getItem('highScore'), 10) || 0;
+let hitHighScore = false;
 let snakex = blocksize * 5;
 let snakey = blocksize * 5;
 
@@ -67,6 +68,7 @@ function update()
         score++;
         if(score > highScore)
         {
+            hitHighScore = true;
             highScore = score;
             localStorage.setItem('highScore', JSON.stringify(highScore));
         }
@@ -95,7 +97,10 @@ function update()
     {
         gameOver = true;
         killSound.play();
-        alert("GAME OVER\nYou score = " + score);
+        if(hitHighScore)
+            alert("New High score!\nYou score = " + score);
+        else
+            alert("GAME OVER\nYou score = " + score);
         initializeGame();
     }
 
