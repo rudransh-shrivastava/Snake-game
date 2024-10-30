@@ -18,6 +18,8 @@ let gameInterval;
 let velocityx = 0;
 let velocityy = 0;
 
+let lastRenderTime = 0;
+const gameSpeed = 10;
 
 const eatSound = new Audio('eatingsound.mp3');
 const killSound = new Audio('killedsound.mp3')
@@ -42,13 +44,27 @@ function initializeGame()
     placefood();
     document.addEventListener("keyup", changeDirection);
 
-    if(gameInterval)
-        clearInterval(gameInterval);
-
-    gameInterval = setInterval(update, 100);
+    requestAnimationFrame(main);
 }
 
 window.onload = initializeGame;
+
+function main(currentTime) {
+    if (gameOver) return;
+
+    const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
+    if (secondsSinceLastRender < 1 / gameSpeed) {
+        requestAnimationFrame(main);
+        return;
+    }
+
+    lastRenderTime = currentTime;
+
+    update();
+    draw();
+
+    requestAnimationFrame(main);
+}
 
 function update() 
 {
@@ -120,6 +136,21 @@ function placefood()
 {
     foodx = Math.floor(Math.random() * columns) * blocksize;
     foody = Math.floor(Math.random() * rows) * blocksize;
+}
+
+function draw() {
+    context.fillStyle = "white";
+    context.fillRect(0, 0, board.width, board.height);
+
+    context.fillStyle = "red";
+    context.fillRect(foodx, foody, blocksize, blocksize);
+
+    context.fillStyle = "lime";
+    context.fillRect(snakex, snakey, blocksize, blocksize);
+
+    for (let i = 0; i < snakeBody.length; i++) {
+        context.fillRect(snakeBody[i][0], snakeBody[i][1], blocksize, blocksize);
+    }
 }
 
 function changeDirection(e) 
