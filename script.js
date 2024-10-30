@@ -27,6 +27,7 @@ eatSound.preload = 'auto';
 killSound.preload = 'auto';
 function initializeGame()
 {
+    hitHighScore = false;
     score = 0;
     velocityx = 0;
     velocityy = 0;
