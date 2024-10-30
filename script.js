@@ -16,6 +16,9 @@ var gameInterval;
 var velocityx = 0;
 var velocityy = 0;
 
+const eatSound = new Audio('eatingsound.mp3');
+const killSound = new Audio('killedsound.mp3')
+
 function initializeGame()
 {
     score = 0;
@@ -56,6 +59,7 @@ function update()
     if(snakex == foodx && snakey == foody)
     {
         snakeBody.push([foodx, foody]);
+        eatSound.play();
         score++;
         document.getElementsByClassName("box")[0].innerHTML = `Score = ${score}`;
         placefood();
@@ -80,6 +84,7 @@ function update()
     if(snakex < 0 || snakex > (columns - 1) * blocksize || snakey < 0 || snakey > (rows - 1) * blocksize)
     {
         gameOver = true;
+        killSound.play();
         alert("GAME OVER\nYou score = " + score);
         initializeGame();
     }
@@ -89,6 +94,7 @@ function update()
         if(snakex == snakeBody[i][0] && snakey == snakeBody[i][1])
         {
             gameOver = true;
+            killSound.play();
             alert("GAME OVER\nYou score = " + score);
             initializeGame();
         }
